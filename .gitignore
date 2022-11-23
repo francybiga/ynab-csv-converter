@@ -1,0 +1,6 @@
+*.swp
+
+# Ignore example files
+*.csv
+*.xlsx
+
