@@ -17,7 +17,7 @@ BEGIN {
 # stops working as we expect.
 awkcommand_manual_csv='
 # match lines whose first columns is in a date format
-$1~/[0-9]{2}\/[0-9]{2}\/[0-9]{2}/ { 
+$1~/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/ { 
     # prepend the two trailing digits (indicating year) with "20" to obtain year in 4 digit format
     fulldate = gensub(/([0-9]{2}$)/,"20\\1", "g", $1); 
 
@@ -36,7 +36,7 @@ $1~/[0-9]{2}\/[0-9]{2}\/[0-9]{2}/ {
 # we can "save" some awk processing and we simply print the selected columns
 awkcommand_auto_csv='
 # match lines whose first columns is in a date format and print selected columns
-$1~/[0-9]{2}\/[0-9]{2}\/[0-9]{2}/ { print $1,$2,$3,$8 }
+$1~/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/ { print $1,$2,$3,$8 }
 '
 
 if [ "$#" -ne 2 ]; then
