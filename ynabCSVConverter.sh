@@ -27,7 +27,7 @@ $1~/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/ {
     # Use dot instead of comma for decimal separator (comma will be used as field separator)
     gsub(/,/,".", $8); 
 
-    print fulldate,$2,$3,$8  
+    printf("%s,%s,%s,%.2f\n", fulldate,$2,$3,$8)
 }
 '
 
@@ -36,7 +36,7 @@ $1~/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/ {
 # we can "save" some awk processing and we simply print the selected columns
 awkcommand_auto_csv='
 # match lines whose first columns is in a date format and print selected columns
-$1~/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/ { print $1,$2,$3,$8 }
+$1~/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}/ { printf("%s,%s,%s,%.2f\n", $1,$2,$3,$8) }
 '
 
 if [ "$#" -ne 2 ]; then
