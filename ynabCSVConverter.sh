@@ -88,3 +88,16 @@ else
     echo "Unrecognized input file extension $input_file_extension"
     exit 1
 fi
+
+# Print summary
+
+# We count the number of lines and substract 1 which is the first line containing column names
+num_transactions=$(expr $(cat $output_file | wc -l | bc -l) - 1)
+
+# We use sed at the end to remove the last line which contains the column name
+start_date=$(awk -F, '{ print $1 }' $output_file | sort | sed \$d | head -1)
+end_date=$(awk -F, '{ print $1 }' $output_file | sort | sed \$d | tail -1)
+total_amount=$(awk 'BEGIN { FS=","; sum=0 } { sum+=$4 } END { print sum }' $output_file)
+
+echo "$num_transactions transactions between $start_date and $end_date"
+echo "Total amount: $total_amount"
